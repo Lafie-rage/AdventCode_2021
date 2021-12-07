@@ -14,7 +14,7 @@ fun day1(isTest: Boolean = false, part: Int = 2) {
 }
 
 fun testDay1(part: Int = 2) {
-    day1(true)
+    day1(true, part)
 }
 
 private fun part1(path: String) {
