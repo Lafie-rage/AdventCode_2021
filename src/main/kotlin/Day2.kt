@@ -2,7 +2,7 @@ import java.io.File
 
 fun day2() {
     println("DAY 2 :")
-    val position = Position()
+    val position = SubmarinePosition()
     File("./src/main/resources/day2.txt").forEachLine { line ->
         val value  = line.substringAfter(" ").toInt()
         when {
