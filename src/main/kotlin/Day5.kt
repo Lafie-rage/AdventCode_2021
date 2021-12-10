@@ -38,15 +38,65 @@ private fun part1(path: String) {
         )
     }
 
-    directions.forEach { direction ->
-        println("For direction $direction")
-        direction.getLinesBetween().forEach {
-            print("$it ")
-        }
-        println()
+    val positionsOnAnyDirection = directions.flatMap {
+        it.getLinesBetween()
     }
+
+    val allPositionsOccurrences = positionsOnAnyDirection
+        .groupBy { it }
+        .map {
+            PositionOccurrence(it.value.size, it.value[0])
+        }
+
+    val positionThatMostOccurred = allPositionsOccurrences.filter { it.occurrence > 1 }
+
+
+    println("Answer is ${positionThatMostOccurred.size}")
 }
 
 private fun part2(path: String) {
+    val values = mutableListOf<String>()
 
+    File(path).forEachLine {
+        values.add(it)
+    }
+
+    val directions = mutableListOf<Direction>()
+    values.forEach { value ->
+        val fromTo = value.split(" -> ")
+        val from = fromTo[0].split(",").map { it.toInt() }
+        val to = fromTo[1].split(",").map { it.toInt() }
+        directions.add(
+            Direction(
+                Position(from[0], from[1]),
+                Position(to[0], to[1]),
+            )
+        )
+    }
+
+    val positionsOnAnyDirection = directions.flatMap {
+        it.getPositionBetween()
+    }
+
+
+    val allPositionsOccurrences = positionsOnAnyDirection
+        .groupBy { it }
+        .map {
+            PositionOccurrence(it.value.size, it.value[0])
+        }
+
+    for (x in 0 until 9) {
+        for (y in 0 until 9) {
+            val positionOccurrences = allPositionsOccurrences.filter { it.position.x == x && it.position.y == y }
+            val occurrence: String =
+                if (positionOccurrences.isNotEmpty()) positionOccurrences[0].occurrence.toString() else "."
+            print(occurrence)
+        }
+        println()
+    }
+
+//    val positionThatMostOccurred = allPositionsOccurrences.filter { it.occurrence > 1 }
+
+
+//    println("Answer is ${positionThatMostOccurred.size}") // Should be 12
 }

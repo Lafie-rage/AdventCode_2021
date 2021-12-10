@@ -1,0 +1,1 @@
+class PositionOccurrence(val occurrence: Int, val position: Position)

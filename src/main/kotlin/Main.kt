@@ -3,5 +3,5 @@ fun main() {
     day2()
     day3()
     day4()
-    testDay5(part = 1)
+    testDay5()
 }

@@ -8,12 +8,42 @@ class Direction(
 
     fun getPositionBetween(): List<Position> {
         val result = mutableListOf<Position>()
-        for(x in from.x..to.x) {
-            for(y in from.y..to.y) {
-                result.add(Position(x, y))
-            }
+
+        return if(from.x == to.x || from.y == to.y) {
+            getLinesBetween()
         }
-        return result
+        else {
+            if(from.x < to.x) {
+                for(i in from.x..to.x) {
+                    if(from.y < to.y) {
+                        result.add(Position(i, i))
+                    } else {
+                        result.add(Position(i, ))
+                    }
+                }
+
+            }
+            when {
+                from.x < to.x && from.y < to.y -> {
+                }
+                from.x > to.x && from.y < to.y -> {
+                    for(i in to.x..from.x) {
+                        result.add (Position(i, i))
+                    }
+                }
+                from.x > to.x -> { // from.y always lower than to.y
+                    for(i in to.x..from.x) {
+                        result.add (Position(i, i))
+                    }
+                }
+                else -> {
+                    for(i in from.x..to.x) {
+                        result.add (Position(i, i))
+                    }
+                }
+            }
+            return result
+        }
     }
 
     fun getLinesBetween(): List<Position> {
